@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>blockinfo</title>
+</head>
+
+<body>
+    <div id="app" align="center">
+        <h2>Bitcoin details
+            Block</h2>
+        <div style="height: 10px; background-color: rgb(255, 255, 255)"></div>
+        <div style="width: 1200px;" align="center">
+            <h2>
+                <div style="float: left; font-size: 18px;">
+                    <el-button type="text" @click="pre_block">
+                        <h2>pre block</h2>
+                    </el-button>
+                </div>
+                This Block #{{height}}
+                <div style="float: right; font-size: 18px;">
+                    <el-button type="text" @click="next_block">
+                        <h2>next block</h2>
+                    </el-button>
+                </div>
+            </h2>
+        </div>
+        <br>
+        <div id="liuliuliu" style="background-color:white; height: 500px; width: 1000px; padding-top: 0px">
+            <div align="left" style="padding-left: 20px;">
+                <h2>BLOCK</h2>
+                <template>
+                    <p style="font-size: 20px;color: #0000ff">Hash
+                        <span  style="font-size: 15px;color: #000000;">{{blockHash}}</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">
+                        Merkle Root
+                        <span style="font-size: 15px;color: #000000;">{{merkleRoot}}</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">
+                        Number of Transactions
+                        <span style="font-size: 15px;color: #000000;">{{txSize}}</span>
+                    </p>
+                    <hr >
+                    <p style="font-size: 20px;color: #0000ff">Timestamp
+                        <span style="font-size: 15px;color: #000000;">{{blockTime}}</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">Height
+                        <span style="font-size: 15px;color: #000000;">{{blockHeight}}</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">Difficulty
+                        <span style="font-size: 15px;color: #000000;">{{blockDiffculty}}</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">Size
+                        <span style="font-size: 15px;color: #000000;">{{blockSizeOnDisk}}</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">outputTotal
+                        <span style="font-size: 15px;color: #000000;">{{outputTotal}}</span>
+                    </p>
+
+                    <p style="font-size: 20px;color: #0000ff">Transaction Volume
+                        <span style="font-size: 15px;color: #000000;">0X200000</span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">
+                        Block Reward
+                        <span style="font-size: 15px;color: #000000;"></span>
+                    </p>
+                    <hr>
+                    <p style="font-size: 20px;color: #0000ff">
+                        Fee Reward
+                        <span style="font-size: 15px;color: #000000;">{{fee}}</span>
+                    </p>
+                </template>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <br />
+
+
+        <el-table :data="trasnaction" style="width: 100%">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+
+                        发送者信息
+                        <ul>
+                            <li v-for="x in props.row.txDetailTxInfo" v-if="x.type == 1">{{x.address}} |
+                                {{x.amount}}</li>
+                        </ul>
+                        接收者信息
+                        <ul>
+                            <li v-for="x in props.row.txDetailTxInfo" v-if="x.type == 2">{{x.address}} |
+                                {{x.amount}}</li>
+                        </ul>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column label="Timestamp" prop="time" width="280px">
+            </el-table-column>
+            <el-table-column label="Transaction Hash" prop="txhash" width="700px">
+            </el-table-column>
+            <el-table-column label="交易的总价" prop="amount" width="100px">
+
+            </el-table-column>
+        </el-table>
+    </div>
+    </div>
+
+
+
+    </div>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/sockjs.min.js"></script>
+    <script src="assets/js/stomp.min.js"></script>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="viewmodels/blockinfo.js"></script>
+
+
+</body>
+
+</html>

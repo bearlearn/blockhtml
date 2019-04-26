@@ -12,7 +12,7 @@
 <body>
 
     <div style="text-align: center;">
-       <h2>Blockchain</h2>
+        <h2>Blockchain</h2>
     </div>
     <div id="app">
 
@@ -25,55 +25,58 @@
                 </el-select>
             </el-input>
             <el-button slot="append" type="info">搜索</el-button>
-         
+
         </div>
 
         <div>
-                <el-button  type="info">Blockchain</el-button> 
-                <el-button  type="info">Transaction</el-button>
-    
+            <el-button type="info" @click="blockHandler">Blockchain</el-button>
+            <el-button type="info" @click="transactionhandler">Transaction</el-button>
+
         </div>
         <div id="block">
-            <el-table :data="tableData" style="width: 100%">
-                    <el-table-column label="Height">
-                            <template slot-scope="scope">
-                                <a :href="'Blockinfo?height='+scope.row.height"
-                                    style="text-decoration:none">{{scope.row.height}}</a>
-                            </template>
-                        </el-table-column>
-                <el-table-column prop="time" label="Age" >
+            <el-table :data="getblockinfo" style="width: 100%">
+                <el-table-column label="Height">
+                    <template slot-scope="scope">
+                        <a :href="'blockinfo.html?height='+scope.row.height"
+                            style="text-decoration:none">{{scope.row.height}}</a>
+                    </template>
                 </el-table-column>
-                <el-table-column prop="Transactions" label="Transactions">
+                <el-table-column prop="time" label="Age">
+                </el-table-column>
+                <el-table-column prop="txSize" label="Transactions">
                 </el-table-column>
                 <el-table-column prop="miner" label="Miner">
                 </el-table-column>
-                <el-table-column prop="size" label="Size (bytes)">
-            </el-table-column>
-    
-            </el-table>
-    
-        </div>
-    
-        <div id="transaction">
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column prop="height" label="Height" >
-                    </el-table-column>
-                    <el-table-column prop="time" label="Age" >
-                    </el-table-column>
-                    <el-table-column prop="Transactions" label="Transactions">
-                    </el-table-column>
-                    <el-table-column prop="miner" label="Miner">
-                    </el-table-column>
-                    <el-table-column prop="size" label="Size (bytes)">
+                <el-table-column prop="sizeOnDisk" label="Size (bytes)">
                 </el-table-column>
-        
-                </el-table>
-        
-            </div>
+
+            </el-table>
+
+        </div>
+
+        <div id="transaction" style="display:none">
+            <el-table :data="getTransactionData" style="width: 100%">
+                <el-table-column label="Transaction Hash" width="550"
+                >
+                    <template slot-scope="scope">
+                        <a :href="'transactionInfo.html?height='+scope.row.txHash"
+                            style="text-decoration:none">{{scope.row.txHash}}</a>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="txTime" label="Age">
+                </el-table-column>
+                <el-table-column prop="amount" label="Amount (BTC)">
+                </el-table-column>
+                <el-table-column prop="buck" label="Amount (USD)">
+                </el-table-column>
+
+            </el-table>
+
+        </div>
 
     </div>
 
-   
+
     <style>
         .el-select .el-input {
             width: 130px;
@@ -84,9 +87,14 @@
         }
     </style>
 
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/sockjs.min.js"></script>
+    <script src="assets/js/stomp.min.js"></script>
     <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/elementui.js"></script>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script src="viewmodels/blockchain.js"></script>
 
 </body>
