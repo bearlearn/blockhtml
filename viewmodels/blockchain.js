@@ -120,10 +120,10 @@ var app = new Vue({
         handleKeyWordSearch() {
 
         },
-        blockVIEWMORE() {
-            location = "viewmore";
+        blockViewMore() {
+            location = "blockviewmore.html";
         },
-        transactionVIEWMORE() {
+        transactionViewMore() {
 
         }
 
