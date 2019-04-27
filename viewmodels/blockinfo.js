@@ -12,6 +12,8 @@ var app = new Vue({
         height: '',
         list: [],
         outputTotal: 0,
+        prevBlockhash:'',
+        nextBlockhash:'',
         fee: '',
 
     },
@@ -52,7 +54,8 @@ var app = new Vue({
                     app.blockTime = blockinfo.time,
                     app.blockHeight = blockinfo.height,
                     app.blockDiffculty = blockinfo.difficulty,
-                    app.blockSizeOnDisk = blockinfo.sizeOnDisk
+                    app.blockSizeOnDisk = blockinfo.sizeOnDisk,
+                    
                 app.list = blockinfo.transactions
                 var a = app.trasnaction[0].amount
                 console.log(a)
