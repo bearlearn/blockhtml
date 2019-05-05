@@ -124,7 +124,7 @@ var app = new Vue({
             location = "blockviewmore.html";
         },
         transactionViewMore() {
-
+            location = "transactionView.html";
         }
 
     }

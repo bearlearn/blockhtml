@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <link rel="shortcut icon" href="assets/ico/bitbug_favicon.ico" type="image/x-icon">
+    <title>bitAddress</title>
+</head>
+
+<body>
+
+    <div id="app" style="width: 1200px; height: 1200px; margin: 0px auto;">
+        <h2>Bitcoin Address</h2>
+        <div style="width: 860px; height: 500px; margin: 0px auto; float: left;">
+            <div style="width: 800px; height: 500; margin: 0px auto; float: left;">
+                <ul class="bitAddress">
+                    <li style="font-size: 30px;text-align: center"> &nbsp;Summary</li>
+                    <li style="text-align:left">
+                        <span class="title">Address:</span><span class="text"><a
+                                href='javascript:void(0)'>{{address}}</a></span>
+                    </li>
+                    <li><span class="title">Hash160</span><span class="text"><a
+                                href='javascript:void(0)'>{{hash160}}</a></span></li>
+                    <li style="font-size: 30px;text-align: center"> &nbsp;Transactions</li>
+                    <li><span class="title">No. Transactions</span><span class="text">{{txSize}}</span></li>
+                    <li><span class="title">Total Receive</span><span class="text">{{receiveAmount}}</span></li>
+                    <li><span class="title">Final Balance</span><span class="text">{{finalBalance}}</span></li>
+                </ul>
+
+            </div>
+            <!-- <div style="width: 420px; height: 330px; margin: 0px 0px 0px 10px; float: left;">
+                <ul>
+                    
+                </ul>
+            </div> -->
+        </div>
+        <div style="width: 330px; height: 500px; margin: 0 auto; float: left;">
+            <div id="qrcode" style="margin: 50px 0px 0px 35px; width: 200px; height: 200px;">
+
+            </div>
+        </div>
+        <h3>Transactions(Oldest First)</h3>
+        <div style="width: 1200px; height: 800px; margin: 0px auto">
+            <el-table :data="getTrasnaction" style="width: 100%">
+                <el-table-column type="expand">
+                    <template slot-scope="props">
+
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <div class="Div">
+                                <ul>
+                                    <li v-for="x in props.row.txDetailTxInfos" v-if="x.type == 1 && x.address==address">
+                                        {{x.address}}
+                                    </li>
+                                    <li v-for="x in props.row.txDetailTxInfos" v-if="x.type == 1 && x.address!=address">
+                                        <a :href="'bitAddress?address='+x.address"
+                                            style="text-decoration:none">{{x.address}}</a>
+                                    </li>
+                                    <li v-for="x in props.row.txDetailTxInfos" v-if="x.address">
+                                        No Inputs (Newly Generated Coins)
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+                            <div class="centerDiv">
+                                ->
+                            </div>
+                            <div class="Div">
+
+                                <ul>
+                                    <li v-for="x in props.row.txDetailTxInfos" v-if="x.type == 2 && x.address==address">
+                                        {{x.address}}|
+                                        {{x.amount}}</li>
+                                    <li v-for="x in props.row.txDetailTxInfos" v-if="x.type == 2 && x.address!=address">
+                                        <a :href="'bitAddress?address='+x.address"
+                                            style="text-decoration:none">{{x.address}}</a> |
+                                        {{x.amount}}</li>
+                                </ul>
+                            </div>
+
+                        </el-form>
+                    </template>
+                </el-table-column>
+                <el-table-column width="800px">
+                    <template slot-scope="props">
+                        <a href="javascript:void(0)" style="text-decoration:none">{{props.row.txid}}</a>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="time" width="300px">
+                </el-table-column>
+            </el-table>
+        </div>
+    </div>
+
+
+    <style>
+        div {
+            /* border: 1px solid black; */
+        }
+
+        .Div {
+            float: left;
+            display: inline-block;
+            width: 40%;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .centerDiv {
+            float: left;
+            font-size: 30px;
+            display: inline-block;
+            width: 10%;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .bitAddress>li {
+            list-style: none;
+            height: 40px;
+            margin-top: 5px;
+            padding-top: 15px;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow-x: auto
+        }
+
+        .bitAddress {
+            align: left;
+        }
+
+        .bitAddress>li:nth-child(odd) {
+            background: rgb(0, 26, 255)
+        }
+
+        .bitAddress>li:nth-child(even) {
+            background: rgb(220, 255, 235)
+        }
+
+        .title {
+            display: inline-block;
+            font-size: 14px;
+            width: 14%;
+        }
+
+        .text {
+            display: inline-block;
+            width: 86%;
+            text-align: right
+        }
+
+        a {
+            text-decoration: none
+        }
+    </style>
+    <script src="assets/js/qrcode.min.js"></script>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/sockjs.min.js"></script>
+    <script src="assets/js/stomp.min.js"></script>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="viewmodels/bitAddress.js"></script>
+
+
+</body>
+
+</html>

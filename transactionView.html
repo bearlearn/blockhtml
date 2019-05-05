@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <link rel="shortcut icon" href="assets/ico/bitbug_favicon.ico" type="image/x-icon">
+    <title>Demo</title>
+</head>
+
+<body>
+    <div id="app" align="center">
+    <br>
+    <div id="liuliuliu" style="background-color:white; height: 260px; width: 1200px; padding-top: 0px">
+        <div align="left" style="padding-left: 20px;">
+            <h2>Summary</h2>
+            <p>Total Fees
+                <span style="float: right; margin-right: 30px;">{{fees}}</span>
+            </p>
+            <hr>
+            <p>Total Size
+                <span style="float: right; margin-right: 30px;">{{size}}</span>
+            </p>
+            <hr>
+            <p>Transactions Per Second
+                <span style="float: right; margin-right: 30px;">102.98</span>
+            </p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div id="" style="background-color:white; height: 180px; width: 1200px; padding-top: 0px">
+        <div align="left" style="padding-left: 20px;">
+            <h2>
+                TRANSACTIONS
+            </h2>
+            <el-table :data="gettrasnaction" style="width: 100%">
+                {{trasnaction}}
+                <el-table-column type="expand">
+                    <template slot-scope="props">
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            发送者信息
+                            <ul>
+                                <li v-for="x in props.row.transactionInBlockDtos.txDetailTxInfo" v-if="x.type == 1"><a
+                                        :href="'bitAddress?address='+x.address"
+                                        style="text-decoration:none">{{x.address}}</a> |
+                                    {{x.amount}}</li>
+                            </ul>
+                            接收者信息
+                            <ul>
+                                <li v-for="x in props.row.transactionInBlockDtos.txDetailTxInfo" v-if="x.type == 2"> <a
+                                        :href="'bitAddress?address='+x.address"
+                                        style="text-decoration:none">{{x.address}}</a> |
+                                    {{x.amount}}</li>
+                            </ul>
+                        </el-form>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Time" prop="txTime" width="280px">
+                </el-table-column>
+                <el-table-column label="Transaction Hash" width="700px">
+                    <template slot-scope="scope">
+                        <a :href="'transactionInfo?hash='+scope.row.txId"
+                            style="text-decoration:none">{{scope.row.txHash}}</a>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </div>
+
+    </div>
+
+    <style>
+        #blockdiv {
+            border: 1px solid #696;
+            padding: 60px 0;
+            text-align: center;
+            width: 200px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            -webkit-box-shadow: #666 0px 0px 10px;
+            -moz-box-shadow: #666 0px 0px 10px;
+            box-shadow: #666 0px 0px 10px;
+            background: #EEFF99;
+            behavior: url(/PIE.htc);
+        }
+    </style>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/sockjs.min.js"></script>
+    <script src="assets/js/stomp.min.js"></script>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="viewmodels/transactionView.js"></script>
+
+
+    </body>
+
+</html>
